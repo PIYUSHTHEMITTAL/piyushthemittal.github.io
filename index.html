@@ -167,7 +167,7 @@ https://templatemo.com/tm-530-mini-profile
 
             <div class="row">
                 <div class="col-12">
-                    <form action="index.html" method="POST" id="tmContactForm" class="tm-bg-white-transparent">
+                    <form action="index.html" method="POST" action="https://mailthis.to/you@mail.com" encType="multipart/form-data" id="tmContactForm" class="tm-bg-white-transparent">
                         <div class="form-group">
                             <input type="text" id="contact_name" name="contact_name" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Name" required />
                         </div>
@@ -177,6 +177,11 @@ https://templatemo.com/tm-530-mini-profile
                         <div class="form-group">
                             <textarea rows="4" id="contact_message" name="contact_message" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Message" required></textarea>
                         </div>
+                        <input type="hidden" id="email" name="_replyto" value="piyushthemittal@gmail.com" class="form-control rounded-0 border-top-0 border-right-0 border-left-0" placeholder="Name" required />
+                        <input type="hidden" name="_subject" value="Contact form submitted">
+                        <input type="hidden" name="_after" value="https://myhomepage.net/">
+                        <input type="hidden" name="_honeypot" value="">
+                        <input type="hidden" name="_confirmation" value="">
                         <div class="text-center">
                             <button type="submit" class="btn tm-btn-submit rounded-0 text-white">
                   Submit
@@ -189,7 +194,7 @@ https://templatemo.com/tm-530-mini-profile
             <div class="row">
                 <footer class="col-12">
                     <p class="text-center tm-copyright-text">
-                        Copyright 2020 Piyush Mittal Page - Design: Template Mo</p>
+                        Copyright 2020 Piyush Mittal's Page</p>
                 </footer>
             </div>
         </div>
