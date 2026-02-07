@@ -14,22 +14,47 @@
             background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
             font-family: 'Arial', sans-serif;
             text-align: center;
+            overflow: hidden; /* Prevents scrollbars from floating hearts */
+            transition: background 0.5s ease;
         }
+
+        /* Floating Hearts Styles */
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 20px;
+            pointer-events: none;
+            animation: float 6s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
         .card {
             background: white;
             padding: 25px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            width: 90%;
-            max-width: 400px;
+            width: fit-content;
+            max-width: 95vw;
+            position: relative;
+            z-index: 10;
         }
+
         .proposal-image {
-            width: 100%;
+            width: auto;
+            height: auto;
+            max-width: 100%;
             border-radius: 15px;
             margin-bottom: 15px;
-            object-fit: cover;
-            max-height: 300px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
+
         h2 { color: #d63384; margin-top: 10px; }
         .poem { font-style: italic; color: #555; margin: 15px 0; line-height: 1.5; }
         .buttons { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
@@ -42,7 +67,9 @@
             cursor: pointer;
             font-weight: bold;
         }
+
         #yesBtn { background: #ff4d6d; color: white; transition: 0.3s; }
+        #yesBtn:hover { transform: scale(1.1); }
         #noBtn { background: #adb5bd; color: white; position: relative; }
     </style>
 </head>
@@ -68,36 +95,8 @@
 </div>
 
 <script>
-    function accept() {
-        // Update the Image to the second one
-        // Replace 'second_pic.jpg' with your actual image path
-        document.getElementById('displayImg').src = 'test.jpeg';
-        
-        // Update the Text
-        document.getElementById('heading').innerHTML = "❤️ YAYYY! ❤️";
-        document.getElementById('content').innerHTML = `
-            <p style="font-size: 1.2rem; font-weight: bold; color: #d63384;">
-                Happy you made the best decision!
-            </p>
-            <p>Today is a special day. ✨</p>
-        `;
-        
-        // Hide buttons
-        document.getElementById('btnGroup').style.display = 'none';
-        
-        // Change background
-        document.body.style.background = "#ff4d6d";
-    }
-
-    function moveNo() {
-        const x = Math.random() * (window.innerWidth - 100);
-        const y = Math.random() * (window.innerHeight - 50);
-        const btn = document.getElementById('noBtn');
-        btn.style.position = 'fixed';
-        btn.style.left = x + 'px';
-        btn.style.top = y + 'px';
-    }
-</script>
-
-</body>
-</html>
+    // Create floating hearts
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '
