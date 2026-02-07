@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Aarohi</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 85%;
+            max-width: 350px;
+        }
+        .media-container {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            background: #eee;
+        }
+        #displayImg, #displayVideo {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+        h2 { color: #d63384; margin-top: 10px; font-size: 1.8rem; }
+        .poem { font-style: italic; color: #555; margin: 15px 0; line-height: 1.5; font-size: 1.1rem; }
+        .buttons { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+        
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #yesBtn { background: #ff4d6d; color: white; }
+        #noBtn { background: #adb5bd; color: white; transition: 0.1s; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="media-container" id="mediaBox">
+        <img id="displayImg" src="first_pic.jpg" alt="Aarohi">
+    </div>
+    
+    <h2 id="heading">Hey Aarohi...</h2>
+    <div id="content">
+        <p class="poem">
+            "Tu meri chahat hai, tu meri rahat hai,<br>
+            Tujhse hai mujhe sukoon,<br>
+            Chahe ho Delhi ya Dehradun."
+        </p>
+        <h3 style="color: #444;">Will you be mine, my Simran?</h3>
+    </div>
+
+    <div class="buttons" id="btnGroup">
+        <button id="yesBtn" onclick="accept()">Yes!</button>
+        <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No</button>
+    </div>
+</div>
+
+<script>
+    function accept() {
+        // 1. Replace Image with Video
+        const mediaBox = document.getElementById('mediaBox');
+        mediaBox.innerHTML = `
+            <video id="displayVideo" autoplay loop playsinline>
+                <source src="success_vdo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        `;
+        
+        // 2. Update Text
+        document.getElementById('heading').innerHTML = "❤️ YAYYY! ❤️";
+        document.getElementById('content').innerHTML = `
+            <p style="font-size: 1.3rem; font-weight: bold; color: #d63384; margin-bottom: 10px;">
+                Happy you made the best decision!
+            </p>
+            <p style="color: #666;">Today is a special day. ✨</p>
+        `;
+        
+        // 3. UI Cleanup
+        document.getElementById('btnGroup').style.display = 'none';
+        document.body.style.background = "#ff4d6d";
+    }
+
+    function moveNo() {
+        const btn = document.getElementById('noBtn');
+        const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+        btn.style.position = 'fixed';
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+    }
+</script>
+
+</body>
+</html>
