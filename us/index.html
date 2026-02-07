@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Aarohi</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 400px;
+        }
+        .proposal-image {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            object-fit: cover;
+            max-height: 300px;
+        }
+        h2 { color: #d63384; margin-top: 10px; }
+        .poem { font-style: italic; color: #555; margin: 15px 0; line-height: 1.5; }
+        .buttons { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+        
+        button {
+            padding: 12px 30px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #yesBtn { background: #ff4d6d; color: white; transition: 0.3s; }
+        #noBtn { background: #adb5bd; color: white; position: relative; }
+    </style>
+</head>
+<body>
+
+<div class="card" id="mainCard">
+    <img id="displayImg" src="first_pic.jpg" alt="Our Moment" class="proposal-image">
+    
+    <h2 id="heading">Hey Aarohi...</h2>
+    <div id="content">
+        <p class="poem">
+            "Tu meri chahat hai, tu meri rahat hai,<br>
+            Tujhse hai mujhe sukoon,<br>
+            Chahe ho Delhi ya Dehradun."
+        </p>
+        <h3>Will you be mine, my Simran?</h3>
+    </div>
+
+    <div class="buttons" id="btnGroup">
+        <button id="yesBtn" onclick="accept()">Yes!</button>
+        <button id="noBtn" onmouseover="moveNo()">No</button>
+    </div>
+</div>
+
+<script>
+    function accept() {
+        // Update the Image to the second one
+        // Replace 'second_pic.jpg' with your actual image path
+        document.getElementById('displayImg').src = 'second_pic.jpg';
+        
+        // Update the Text
+        document.getElementById('heading').innerHTML = "❤️ YAYYY! ❤️";
+        document.getElementById('content').innerHTML = `
+            <p style="font-size: 1.2rem; font-weight: bold; color: #d63384;">
+                Happy you made the best decision!
+            </p>
+            <p>Today is a special day. ✨</p>
+        `;
+        
+        // Hide buttons
+        document.getElementById('btnGroup').style.display = 'none';
+        
+        // Change background
+        document.body.style.background = "#ff4d6d";
+    }
+
+    function moveNo() {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 50);
+        const btn = document.getElementById('noBtn');
+        btn.style.position = 'fixed';
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+    }
+</script>
+
+</body>
+</html>
