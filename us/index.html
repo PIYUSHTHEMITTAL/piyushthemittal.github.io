@@ -14,11 +14,11 @@
             background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
             font-family: 'Arial', sans-serif;
             text-align: center;
-            overflow: hidden; /* Prevents scrollbars from floating hearts */
+            overflow: hidden; 
             transition: background 0.5s ease;
         }
 
-        /* Floating Hearts Styles */
+        /* Floating Hearts Animation */
         .heart {
             position: absolute;
             color: rgba(255, 255, 255, 0.7);
@@ -35,28 +35,29 @@
 
         .card {
             background: white;
-            padding: 25px;
+            padding: 20px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            width: fit-content;
-            max-width: 95vw;
+            width: 90%;
+            max-width: 450px; /* Adjust this to make the card wider or narrower */
             position: relative;
             z-index: 10;
         }
 
         .proposal-image {
-            width: auto;
-            height: auto;
-            max-width: 100%;
+            width: 100%;        /* Fills the card width */
+            height: auto;       /* Maintains aspect ratio */
+            max-height: 60vh;   /* Keeps it from being too tall on long screens */
+            object-fit: contain; /* Ensures the whole image is visible without cropping */
             border-radius: 15px;
             margin-bottom: 15px;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
         }
 
-        h2 { color: #d63384; margin-top: 10px; }
-        .poem { font-style: italic; color: #555; margin: 15px 0; line-height: 1.5; }
+        h2 { color: #d63384; margin-top: 10px; font-size: 1.5rem; }
+        .poem { font-style: italic; color: #555; margin: 10px 0; line-height: 1.4; font-size: 0.95rem; }
+        h3 { color: #333; font-size: 1.1rem; }
+
         .buttons { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
         
         button {
@@ -99,4 +100,51 @@
     function createHeart() {
         const heart = document.createElement('div');
         heart.classList.add('heart');
-        heart.innerHTML = '
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }
+
+    setInterval(createHeart, 400);
+
+    function accept() {
+        // Change image
+        document.getElementById('displayImg').src = 'test.jpeg';
+        
+        // Change text
+        document.getElementById('heading').innerHTML = "❤️ YAYYY! ❤️";
+        document.getElementById('content').innerHTML = `
+            <p style="font-size: 1.2rem; font-weight: bold; color: #d63384;">
+                Happy you made the best decision!
+            </p>
+            <p>Today is a special day. ✨</p>
+        `;
+        
+        // Hide buttons
+        document.getElementById('btnGroup').style.display = 'none';
+        
+        // Change background color
+        document.body.style.background = "#ff4d6d";
+        
+        // Increase heart intensity
+        setInterval(createHeart, 100);
+    }
+
+    function moveNo() {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 50);
+        const btn = document.getElementById('noBtn');
+        btn.style.position = 'fixed';
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+    }
+</script>
+
+</body>
+</html>
