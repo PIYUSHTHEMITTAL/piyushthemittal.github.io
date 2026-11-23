@@ -1,164 +1,502 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piyush Mittal | Senior DevOps Engineer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f1f5f9; scroll-behavior: smooth; }
-        .gradient-text { background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .card { background: #1e293b; border: 1px solid #334155; transition: all 0.3s ease; }
-        .card:hover { transform: translateY(-5px); border-color: #38bdf8; box-shadow: 0 10px 20px -10px rgba(56, 189, 248, 0.3); }
-        .nav-link:hover { color: #38bdf8; }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Piyush Mittal · Senior DevOps Engineer</title>
+<meta name="description" content="Piyush Mittal — Senior DevOps Engineer. Crossplane, Kubernetes, SigNoz, AWS." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070b16;
+    --bg2:#0b1226;
+    --fg:#e6ecff;
+    --muted:#8a95b8;
+    --accent:#00e5a8;
+    --accent2:#5b8dff;
+    --card:rgba(255,255,255,0.04);
+    --border:rgba(255,255,255,0.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Space Grotesk',system-ui,sans-serif;
+    background:var(--bg); color:var(--fg);
+    overflow-x:hidden; line-height:1.55;
+  }
+  code,pre,.mono{font-family:'JetBrains Mono',monospace}
+  a{color:inherit;text-decoration:none}
+
+  /* animated bg canvas */
+  #bgCanvas{position:fixed;inset:0;z-index:0;opacity:0.55}
+
+  /* cursor */
+  .cursor-dot{position:fixed;width:8px;height:8px;background:var(--accent);
+    border-radius:50%;pointer-events:none;z-index:9999;transition:transform .08s ease-out;mix-blend-mode:screen}
+  .cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--accent);
+    border-radius:50%;pointer-events:none;z-index:9998;transition:transform .18s ease-out, width .25s, height .25s}
+
+  /* nav */
+  nav{position:fixed;top:24px;left:50%;transform:translateX(-50%);z-index:50;
+    background:rgba(11,18,38,.6);backdrop-filter:blur(14px);
+    border:1px solid var(--border);border-radius:999px;padding:10px 18px;display:flex;gap:18px;font-size:14px}
+  nav a{color:var(--muted);transition:color .2s;position:relative}
+  nav a:hover,nav a.active{color:var(--fg)}
+  nav a.active::after{content:"";position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:6px;height:6px;background:var(--accent);border-radius:50%}
+
+  section{position:relative;z-index:2;padding:120px 8vw;max-width:1300px;margin:0 auto}
+
+  /* hero */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:160px}
+  .hero .tag{color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:14px;margin-bottom:18px;letter-spacing:2px}
+  .hero h1{font-size:clamp(48px,9vw,120px);font-weight:700;line-height:.95;letter-spacing:-.03em}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero h2{font-size:clamp(20px,3vw,32px);color:var(--muted);margin-top:18px;font-weight:400;max-width:720px}
+  .hero .typed{color:var(--accent)}
+  .hero-cta{margin-top:40px;display:flex;gap:16px;flex-wrap:wrap}
+  .btn{padding:14px 26px;border:1px solid var(--accent);color:var(--accent);
+    border-radius:999px;font-weight:600;transition:all .25s;cursor:pointer;font-size:14px;letter-spacing:.5px;
+    background:transparent;font-family:inherit}
+  .btn:hover{background:var(--accent);color:var(--bg);transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,229,168,.3)}
+  .btn.ghost{border-color:var(--border);color:var(--fg)}
+  .btn.ghost:hover{background:var(--card);color:var(--fg);box-shadow:none}
+
+  .scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);color:var(--muted);font-size:12px;letter-spacing:3px;animation:bounce 2s infinite}
+  @keyframes bounce{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+
+  h3.sec-title{font-size:14px;color:var(--accent);letter-spacing:4px;font-family:'JetBrains Mono',monospace;margin-bottom:12px}
+  h4.sec-head{font-size:clamp(32px,5vw,56px);font-weight:700;margin-bottom:50px;letter-spacing:-.02em}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:40px}
+  .stat{padding:28px;border:1px solid var(--border);border-radius:16px;background:var(--card);transition:all .3s;position:relative;overflow:hidden}
+  .stat:hover{transform:translateY(-6px);border-color:var(--accent)}
+  .stat::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(0,229,168,.08));opacity:0;transition:opacity .3s}
+  .stat:hover::before{opacity:1}
+  .stat .num{font-size:48px;font-weight:700;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;font-family:'JetBrains Mono',monospace}
+  .stat .lbl{color:var(--muted);margin-top:6px;font-size:14px}
+
+  /* terminal */
+  .terminal{background:#0a0f1f;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4);margin-top:30px}
+  .term-head{background:#141a2e;padding:10px 16px;display:flex;gap:8px;align-items:center}
+  .dot{width:12px;height:12px;border-radius:50%}
+  .dot.r{background:#ff5f56}.dot.y{background:#ffbd2e}.dot.g{background:#27c93f}
+  .term-title{color:var(--muted);font-size:12px;margin-left:12px;font-family:'JetBrains Mono',monospace}
+  .term-body{padding:22px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.75;min-height:200px}
+  .term-body .prompt{color:var(--accent)}
+  .term-body .cmd{color:var(--fg)}
+  .term-body .out{color:var(--muted)}
+  .cursor-blink{display:inline-block;width:8px;height:14px;background:var(--accent);animation:blink 1s step-end infinite;vertical-align:middle}
+  @keyframes blink{50%{opacity:0}}
+
+  /* skills */
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+  .skill-card{padding:28px;border:1px solid var(--border);border-radius:16px;background:var(--card);transition:all .3s;cursor:pointer}
+  .skill-card:hover{transform:translateY(-4px);border-color:var(--accent2);background:rgba(91,141,255,.06)}
+  .skill-card h5{font-size:18px;margin-bottom:14px;color:var(--fg);display:flex;align-items:center;gap:10px}
+  .skill-card h5 .icon{width:32px;height:32px;display:grid;place-items:center;background:rgba(0,229,168,.12);border-radius:8px;font-size:18px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tag-chip{padding:5px 10px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+
+  /* timeline */
+  .timeline{position:relative;padding-left:40px}
+  .timeline::before{content:"";position:absolute;left:12px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--accent),var(--accent2),transparent)}
+  .tl-item{position:relative;margin-bottom:50px}
+  .tl-item::before{content:"";position:absolute;left:-34px;top:8px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--accent);box-shadow:0 0 0 4px rgba(0,229,168,.15)}
+  .tl-date{color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:1px}
+  .tl-role{font-size:22px;font-weight:600;margin:6px 0}
+  .tl-co{color:var(--muted);margin-bottom:12px}
+  .tl-item ul{list-style:none;margin-top:10px}
+  .tl-item li{padding-left:20px;position:relative;margin-bottom:6px;color:#c5cce4;font-size:14.5px}
+  .tl-item li::before{content:"▹";position:absolute;left:0;color:var(--accent)}
+
+  /* projects */
+  .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+  .proj{padding:28px;border:1px solid var(--border);border-radius:16px;background:var(--card);transition:all .3s;position:relative;overflow:hidden;cursor:pointer}
+  .proj:hover{transform:translateY(-6px) rotateX(2deg);border-color:var(--accent)}
+  .proj .pico{font-size:28px;margin-bottom:14px}
+  .proj h5{font-size:20px;margin-bottom:10px}
+  .proj p{color:var(--muted);font-size:14px;margin-bottom:16px}
+
+  /* contact */
+  .contact-wrap{text-align:center;padding:80px 0}
+  .contact-wrap h4{font-size:clamp(40px,7vw,80px);margin-bottom:20px}
+  .contact-wrap p{color:var(--muted);max-width:560px;margin:0 auto 40px;font-size:18px}
+  .socials{display:flex;gap:16px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+
+  footer{text-align:center;padding:40px;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:12px;border-top:1px solid var(--border)}
+
+  .reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.2,.8,.2,1)}
+  .reveal.on{opacity:1;transform:none}
+
+  @media (max-width:640px){
+    nav{gap:10px;padding:8px 14px;font-size:12px}
+    section{padding:80px 6vw}
+    .cursor-dot,.cursor-ring{display:none}
+  }
+</style>
 </head>
-<body class="leading-relaxed">
+<body>
 
-    <nav class="sticky top-0 z-50 bg-[#0f172a]/90 backdrop-blur-md border-b border-slate-800 p-4">
-        <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <span class="text-xl font-bold gradient-text">PIYUSH</span>
-            <div class="hidden md:flex space-x-8 text-sm font-medium">
-                <a href="#about" class="nav-link transition">About</a>
-                <a href="#skills" class="nav-link transition">Skills</a>
-                <a href="#experience" class="nav-link transition">Experience</a>
-                <a href="#education" class="nav-link transition">Education</a>
-                <a href="mailto:piyushthemittal@gmail.com" class="bg-sky-500 hover:bg-sky-400 px-5 py-2 rounded-lg text-white transition">Contact</a>
-            </div>
-        </div>
-    </nav>
+<canvas id="bgCanvas"></canvas>
+<div class="cursor-dot" id="cDot"></div>
+<div class="cursor-ring" id="cRing"></div>
 
-    <header id="about" class="max-w-5xl mx-auto px-4 py-20 flex flex-col md:flex-row items-center gap-12">
-        <div class="md:w-1/3">
-            <div class="w-64 h-64 rounded-2xl overflow-hidden border-4 border-sky-500/20 shadow-2xl shadow-sky-500/10 bg-slate-800 flex items-center justify-center">
-                <img src="https://lh3.googleusercontent.com/a/ACg8ocIGM5fXQLEpCkiTXctK9dH9FaPQLTcGx_WVk8aBiK1chzA0cITVZQ=s288-c-no" alt="Piyush Mittal" class="w-full h-full object-cover">
-            </div>
-        </div>
-        <div class="md:w-2/3 text-center md:text-left">
-            <h1 class="text-5xl font-extrabold mb-4">Piyush <span class="gradient-text">Mittal</span></h1>
-            <p class="text-xl text-slate-400 mb-6 font-light">Senior DevOps Engineer specialized in <b>Crossplane</b> for Cloud Control Planes and <b>SigNoz</b> for Open Source Observability.</p>
-            <div class="flex flex-wrap gap-3 justify-center md:justify-start">
-                <span class="bg-slate-800 px-4 py-1.5 rounded-full text-xs font-semibold border border-slate-700">5+ Years Experience</span>
-                <span class="bg-slate-800 px-4 py-1.5 rounded-full text-xs font-semibold border border-slate-700">AWS / Azure Expert</span>
-                <span class="bg-slate-800 px-4 py-1.5 rounded-full text-xs font-semibold border border-slate-700">K8s Orchestrator</span>
-            </div>
-        </div>
-    </header>
+<nav>
+  <a href="#home" class="active">home</a>
+  <a href="#about">about</a>
+  <a href="#skills">skills</a>
+  <a href="#experience">experience</a>
+  <a href="#projects">projects</a>
+  <a href="#contact">contact</a>
+</nav>
 
-    <section id="skills" class="max-w-5xl mx-auto px-4 py-16">
-        <h2 class="text-3xl font-bold mb-12 text-center">Core Expertise</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="card p-8 rounded-2xl text-center">
-                <i class="fa-solid fa-cloud-nodes text-sky-400 text-4xl mb-4"></i>
-                <h3 class="font-bold text-lg">Crossplane</h3>
-                <p class="text-sm text-slate-400 mt-2">Managing entire AWS clusters & services via Control Planes.</p>
-            </div>
-            <div class="card p-8 rounded-2xl text-center">
-                <i class="fa-solid fa-chart-line text-green-400 text-4xl mb-4"></i>
-                <h3 class="font-bold text-lg">SigNoz</h3>
-                <p class="text-sm text-slate-400 mt-2">Enabled Open Source SigNoz for APM & cost-saving.</p>
-            </div>
-            <div class="card p-8 rounded-2xl text-center">
-                <i class="fa-brands fa-aws text-orange-400 text-4xl mb-4"></i>
-                <h3 class="font-bold text-lg">AWS</h3>
-                <p class="text-sm text-slate-400 mt-2">Expert-level infra management & cost optimization.</p>
-            </div>
-            <div class="card p-8 rounded-2xl text-center">
-                <i class="fa-solid fa-dharmachakra text-blue-400 text-4xl mb-4"></i>
-                <h3 class="font-bold text-lg">Kubernetes</h3>
-                <p class="text-sm text-slate-400 mt-2">Migration lead for EC2 to EKS/K8s environments.</p>
-            </div>
-        </div>
-    </section>
+<section id="home" class="hero">
+  <div class="tag mono">// deploying...</div>
+  <h1>Piyush<br><span class="grad">Mittal</span>.</h1>
+  <h2>Senior DevOps Engineer · I build <span class="typed" id="typed">cloud control planes</span></h2>
+  <div class="hero-cta">
+    <a class="btn" href="#projects">view work →</a>
+    <a class="btn ghost" href="Piyush_Mittal_CV_Improved.pdf" download>download cv</a>
+  </div>
+  <div class="scroll-hint mono">SCROLL ↓</div>
+</section>
 
-    <section id="experience" class="max-w-5xl mx-auto px-4 py-16">
-        <div class="bg-slate-900/50 rounded-3xl p-8 md:p-12 border border-slate-800">
-            <h2 class="text-3xl font-bold mb-12">Professional Experience</h2>
-            <div class="space-y-12">
-                
-                <div class="relative pl-8 border-l-2 border-sky-500">
-                    <div class="absolute -left-[9px] top-0 w-4 h-4 bg-sky-500 rounded-full shadow-[0_0_10px_#38bdf8]"></div>
-                    <div class="flex flex-col md:flex-row md:justify-between mb-4">
-                        <h3 class="text-xl font-bold">Senior DevOps Engineer @ Fareye</h3>
-                        <span class="text-sky-400 font-mono text-sm uppercase">2025 - PRESENT</span>
-                    </div>
-                    <ul class="list-disc list-inside text-slate-300 space-y-3 text-sm md:text-base ml-2">
-                        <li>Managed entire AWS clusters and services (RDS, S3, EKS) using <b>Crossplane</b> for declarative orchestration.</li>
-                        <li>Enabled and managed <b>Open Source SigNoz</b> for APM, successfully replacing New Relic and saving significant licensing costs.</li>
-                        <li>Developed internal IDP tools for developer self-service and monitoring.</li>
-                        <li>Authored advanced Helm charts for multi-cloud alerting and Kafka/RDS observability.</li>
-                    </ul>
-                </div>
+<section id="about" class="reveal">
+  <h3 class="sec-title mono">// 01. ABOUT</h3>
+  <h4 class="sec-head">Reliability, automation, &amp; open source.</h4>
+  <p style="font-size:18px;color:#c5cce4;max-width:780px">
+    5+ years designing automated cloud platforms that scale. I replaced a commercial APM stack
+    with self-hosted <b style="color:var(--accent)">SigNoz</b>, built an
+    <b style="color:var(--accent)">AWS-Crossplane</b> control plane from scratch, and keep 50+
+    microservices breathing across AWS and Azure.
+  </p>
 
-                <div class="relative pl-8 border-l-2 border-slate-700">
-                    <div class="absolute -left-[9px] top-0 w-4 h-4 bg-slate-700 rounded-full"></div>
-                    <div class="flex flex-col md:flex-row md:justify-between mb-4">
-                        <h3 class="text-xl font-bold text-slate-300">DevOps Engineer @ Fareye</h3>
-                        <span class="text-slate-500 font-mono text-sm uppercase">2021 - 2025</span>
-                    </div>
-                    <ul class="list-disc list-inside text-slate-400 space-y-3 text-sm ml-2">
-                        <li>Led the RTTV team migration from EC2 to Kubernetes (Award-winning initiative).</li>
-                        <li>Optimized AWS architecture to reduce inter-AZ data transfer costs by <b>~$30K/month</b>.</li>
-                        <li>Managed production monitoring and on-call for 50+ microservices.</li>
-                    </ul>
-                </div>
+  <div class="stats">
+    <div class="stat"><div class="num" data-count="5">0</div><div class="lbl">years of experience</div></div>
+    <div class="stat"><div class="num" data-count="120" data-suffix="K">0</div><div class="lbl">USD annual APM savings</div></div>
+    <div class="stat"><div class="num" data-count="50" data-suffix="+">0</div><div class="lbl">microservices owned</div></div>
+    <div class="stat"><div class="num" data-count="10" data-suffix="K/mo">0</div><div class="lbl">AWS cost cut</div></div>
+  </div>
 
-                <div class="relative pl-8 border-l-2 border-slate-700">
-                    <div class="absolute -left-[9px] top-0 w-4 h-4 bg-slate-700 rounded-full"></div>
-                    <div class="flex flex-col md:flex-row md:justify-between mb-4">
-                        <h3 class="text-xl font-bold text-slate-300">DevOps Engineer @ Binsar Farms</h3>
-                        <span class="text-slate-500 font-mono text-sm uppercase">2020 - 2021</span>
-                    </div>
-                    <ul class="list-disc list-inside text-slate-400 space-y-3 text-sm ml-2">
-                        <li>Automated messages via shell scripts and cron jobs.</li>
-                        <li>Deployed websites and managed domains on EC2 using Nginx.</li>
-                        <li>Handled admin and tool access management for all internal teams.</li>
-                    </ul>
-                </div>
+  <div class="terminal">
+    <div class="term-head"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="term-title">piyush@portfolio:~</span></div>
+    <div class="term-body" id="term"></div>
+  </div>
+</section>
 
-                <div class="relative pl-8 border-l-2 border-slate-700">
-                    <div class="absolute -left-[9px] top-0 w-4 h-4 bg-slate-700 rounded-full"></div>
-                    <div class="flex flex-col md:flex-row md:justify-between mb-4">
-                        <h3 class="text-xl font-bold text-slate-300">Full Stack Developer @ Grepix Infotech</h3>
-                        <span class="text-slate-500 font-mono text-sm uppercase">2019 - 2020</span>
-                    </div>
-                    <ul class="list-disc list-inside text-slate-400 space-y-3 text-sm ml-2">
-                        <li>Dockerized multiple projects and built robust APIs for Taxi applications in Node.js.</li>
-                        <li>Integrated Google Map APIs for geo-fencing and built e-commerce platforms.</li>
-                    </ul>
-                </div>
+<section id="skills" class="reveal">
+  <h3 class="sec-title mono">// 02. SKILLS</h3>
+  <h4 class="sec-head">The stack.</h4>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h5><span class="icon">⚙️</span>IaC &amp; GitOps</h5>
+      <div class="tags">
+        <span class="tag-chip">Crossplane</span><span class="tag-chip">Terraform</span>
+        <span class="tag-chip">Helm</span><span class="tag-chip">GitHub Actions</span>
+        <span class="tag-chip">Jenkins</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h5><span class="icon">☁️</span>Cloud &amp; Orchestration</h5>
+      <div class="tags">
+        <span class="tag-chip">AWS · EKS</span><span class="tag-chip">RDS</span><span class="tag-chip">S3</span>
+        <span class="tag-chip">Azure</span><span class="tag-chip">Kubernetes</span><span class="tag-chip">Docker</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h5><span class="icon">📊</span>Observability</h5>
+      <div class="tags">
+        <span class="tag-chip">SigNoz</span><span class="tag-chip">OpenTelemetry</span>
+        <span class="tag-chip">Prometheus</span><span class="tag-chip">Grafana</span>
+        <span class="tag-chip">Thanos</span><span class="tag-chip">Elasticsearch</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h5><span class="icon">🔌</span>Platforms &amp; Messaging</h5>
+      <div class="tags">
+        <span class="tag-chip">Internal Developer Platform</span><span class="tag-chip">Kafka</span>
+        <span class="tag-chip">Debezium</span><span class="tag-chip">Nginx</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h5><span class="icon">💻</span>Languages</h5>
+      <div class="tags">
+        <span class="tag-chip">Python</span><span class="tag-chip">Bash</span>
+        <span class="tag-chip">Node.js</span><span class="tag-chip">JavaScript</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h5><span class="icon">🐧</span>Systems</h5>
+      <div class="tags">
+        <span class="tag-chip">Linux</span><span class="tag-chip">Ubuntu</span>
+        <span class="tag-chip">Reverse proxies</span><span class="tag-chip">IAM</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-            </div>
-        </div>
-    </section>
+<section id="experience" class="reveal">
+  <h3 class="sec-title mono">// 03. EXPERIENCE</h3>
+  <h4 class="sec-head">Where I've built.</h4>
+  <div class="timeline">
 
-    <section id="education" class="max-w-5xl mx-auto px-4 py-16">
-        <h2 class="text-3xl font-bold mb-10 text-center">Education</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="card p-6 rounded-2xl">
-                <h3 class="text-xl font-bold gradient-text">MCA</h3>
-                <p class="text-slate-300">IGNOU, Delhi</p>
-                <p class="text-slate-500 text-sm italic">Graduated 2019</p>
-            </div>
-            <div class="card p-6 rounded-2xl">
-                <h3 class="text-xl font-bold gradient-text">B.Voc (Mobile Communication)</h3>
-                <p class="text-slate-300">IP University, Delhi</p>
-                <p class="text-slate-500 text-sm italic">2016 - 2019</p>
-            </div>
-        </div>
-    </section>
+    <div class="tl-item">
+      <div class="tl-date mono">APR 2025 — PRESENT</div>
+      <div class="tl-role">Senior DevOps Engineer</div>
+      <div class="tl-co">Fareye · Noida, India</div>
+      <ul>
+        <li>Rolled out self-hosted SigNoz org-wide, saving ~$120K/yr in APM licensing.</li>
+        <li>Authored a production AWS-Crossplane Helm chart for GitOps provisioning.</li>
+        <li>Built a reusable alerting chart covering Kafka, RDS, Debezium, Kubernetes, EC2.</li>
+        <li>Spearheaded an Internal Developer Platform for self-service deployments.</li>
+        <li>Cut AWS cost by ~$10K/mo via inter-AZ data-flow re-architecture.</li>
+      </ul>
+    </div>
 
-    <footer class="text-center py-20 border-t border-slate-800">
-        <p class="text-slate-500 mb-6">Let's connect and build something stable.</p>
-        <div class="flex justify-center gap-8">
-            <a href="mailto:piyushthemittal@gmail.com" class="text-3xl text-slate-400 hover:text-sky-400 transition"><i class="fa-solid fa-envelope"></i></a>
-            <a href="https://linkedin.com/in/piyushthemittal" target="_blank" class="text-3xl text-slate-400 hover:text-sky-400 transition"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="https://github.com/piyushthemittal" target="_blank" class="text-3xl text-slate-400 hover:text-sky-400 transition"><i class="fa-brands fa-github"></i></a>
-        </div>
-        <p class="mt-10 text-xs text-slate-600">© 2026 Piyush Mittal. Built with Tailwind CSS.</p>
-    </footer>
+    <div class="tl-item">
+      <div class="tl-date mono">FEB 2021 — APR 2025</div>
+      <div class="tl-role">DevOps Engineer</div>
+      <div class="tl-co">Fareye · Noida, India</div>
+      <ul>
+        <li>Migrated core RTTV services from EC2 to EKS — team-wide recognition.</li>
+        <li>Owned on-call &amp; telemetry for 50+ microservices across AWS and Azure.</li>
+        <li>Ran the Prometheus / Grafana / Thanos / New Relic monitoring stack.</li>
+      </ul>
+    </div>
 
+    <div class="tl-item">
+      <div class="tl-date mono">JUL 2020 — FEB 2021</div>
+      <div class="tl-role">DevOps Engineer</div>
+      <div class="tl-co">Binsar Farms · Noida, India</div>
+      <ul>
+        <li>Automated customer comms via Shell scripts &amp; cron jobs.</li>
+        <li>Administered EC2 + Nginx web stack, reverse proxies, load balancing.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date mono">JUN 2019 — JUN 2020</div>
+      <div class="tl-role">Full Stack Developer</div>
+      <div class="tl-co">Grepix Infotech · Noida, India</div>
+      <ul>
+        <li>Dockerized the full app portfolio.</li>
+        <li>Built Node.js REST APIs and admin panels for taxi &amp; e-commerce products.</li>
+        <li>Implemented geo-fencing via Google Maps APIs.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<section id="projects" class="reveal">
+  <h3 class="sec-title mono">// 04. PROJECTS</h3>
+  <h4 class="sec-head">Things I've shipped.</h4>
+  <div class="projects">
+
+    <div class="proj">
+      <div class="pico">🛰️</div>
+      <h5>SigNoz Observability Rollout</h5>
+      <p>Replaced New Relic org-wide with a self-hosted SigNoz + OpenTelemetry pipeline. APM, traces, and logs on one plane. ~$120K/yr saved.</p>
+      <div class="tags"><span class="tag-chip">SigNoz</span><span class="tag-chip">OTel</span><span class="tag-chip">Clickhouse</span></div>
+    </div>
+
+    <div class="proj">
+      <div class="pico">🧬</div>
+      <h5>AWS-Crossplane Control Plane</h5>
+      <p>Dynamic Helm chart that lets dev teams declaratively spin up RDS, S3, EKS and more via GitOps — no raw manifests, no tickets.</p>
+      <div class="tags"><span class="tag-chip">Crossplane</span><span class="tag-chip">Helm</span><span class="tag-chip">AWS</span></div>
+    </div>
+
+    <div class="proj">
+      <div class="pico">🚨</div>
+      <h5>Universal Alerting Chart</h5>
+      <p>One Helm chart to rule Kafka, RDS, Debezium, pods, nodes, EC2 alerts. Kills alert sprawl; keeps on-call sane.</p>
+      <div class="tags"><span class="tag-chip">Helm</span><span class="tag-chip">Prometheus</span><span class="tag-chip">Alertmanager</span></div>
+    </div>
+
+    <div class="proj">
+      <div class="pico">🧰</div>
+      <h5>Internal Developer Platform</h5>
+      <p>Unified UI so devs can deploy, monitor, and manage services themselves — DevOps as self-service, not as a ticket queue.</p>
+      <div class="tags"><span class="tag-chip">IDP</span><span class="tag-chip">Kubernetes</span><span class="tag-chip">GitHub Actions</span></div>
+    </div>
+
+    <div class="proj">
+      <div class="pico">💸</div>
+      <h5>AWS Cost Architecture</h5>
+      <p>Re-shaped inter-AZ data flows &amp; multi-region topology for recurring $10K/mo in savings. Same workloads, leaner bill.</p>
+      <div class="tags"><span class="tag-chip">AWS</span><span class="tag-chip">FinOps</span><span class="tag-chip">VPC</span></div>
+    </div>
+
+    <div class="proj">
+      <div class="pico">🚢</div>
+      <h5>RTTV EC2 → EKS Migration</h5>
+      <p>Lifted core real-time visibility services off legacy EC2 onto resilient EKS clusters. Internal recognition for the effort.</p>
+      <div class="tags"><span class="tag-chip">EKS</span><span class="tag-chip">Docker</span><span class="tag-chip">Helm</span></div>
+    </div>
+
+  </div>
+</section>
+
+<section id="contact" class="contact-wrap reveal">
+  <h3 class="sec-title mono">// 05. CONTACT</h3>
+  <h4>Let's build.</h4>
+  <p>Open to senior DevOps / SRE / platform roles. If any of the above resonates, say hi.</p>
+  <a class="btn" href="mailto:piyushthemittal@gmail.com">piyushthemittal@gmail.com</a>
+  <div class="socials">
+    <a class="btn ghost" href="https://linkedin.com/in/piyushthemittal" target="_blank">LinkedIn</a>
+    <a class="btn ghost" href="https://github.com/piyushthemittal" target="_blank">GitHub</a>
+    <a class="btn ghost" href="Piyush_Mittal_CV_Improved.pdf" download>Resume (PDF)</a>
+  </div>
+</section>
+
+<footer>
+  <div>Built with ❤ + vanilla JS · © <span id="yr"></span> Piyush Mittal</div>
+</footer>
+
+<script>
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // custom cursor
+  const dot = document.getElementById('cDot'), ring = document.getElementById('cRing');
+  window.addEventListener('mousemove', e => {
+    dot.style.transform = `translate(${e.clientX-4}px,${e.clientY-4}px)`;
+    ring.style.transform = `translate(${e.clientX-18}px,${e.clientY-18}px)`;
+  });
+  document.querySelectorAll('a,button,.proj,.skill-card,.stat').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.style.width='56px';ring.style.height='56px'});
+    el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px'});
+  });
+
+  // typed effect
+  const phrases = ["cloud control planes","observability pipelines","Kubernetes platforms","GitOps workflows","developer self-service"];
+  let pi=0, ci=0, del=false;
+  const typedEl = document.getElementById('typed');
+  (function loop(){
+    const p = phrases[pi];
+    typedEl.textContent = p.slice(0, ci);
+    if(!del && ci < p.length){ ci++; setTimeout(loop,65); }
+    else if(del && ci > 0){ ci--; setTimeout(loop,30); }
+    else { del=!del; if(!del){pi=(pi+1)%phrases.length} setTimeout(loop,900); }
+  })();
+
+  // terminal typing
+  const termLines = [
+    {type:'cmd', text:'whoami'},
+    {type:'out', text:'piyush · senior devops engineer · delhi, in'},
+    {type:'cmd', text:'kubectl get achievements'},
+    {type:'out', text:'NAME                        STATUS     IMPACT'},
+    {type:'out', text:'signoz-migration            Running    $120K/yr saved'},
+    {type:'out', text:'crossplane-control-plane    Running    full gitops on aws'},
+    {type:'out', text:'cost-optimization           Running    $10K/mo recurring'},
+    {type:'out', text:'idp-platform                Running    devs self-serve'},
+    {type:'cmd', text:'cat /etc/motd'},
+    {type:'out', text:'open source > vendor lock-in. automate everything twice.'},
+  ];
+  const termEl = document.getElementById('term');
+  async function runTerm(){
+    for(const line of termLines){
+      const div = document.createElement('div');
+      if(line.type==='cmd'){
+        div.innerHTML = `<span class="prompt">➜</span> <span class="cmd"></span>`;
+        termEl.appendChild(div);
+        const target = div.querySelector('.cmd');
+        for(const ch of line.text){ target.textContent += ch; await sleep(35); }
+      } else {
+        div.innerHTML = `<span class="out">${line.text}</span>`;
+        termEl.appendChild(div);
+        await sleep(120);
+      }
+    }
+    const cur = document.createElement('div');
+    cur.innerHTML = `<span class="prompt">➜</span> <span class="cursor-blink"></span>`;
+    termEl.appendChild(cur);
+  }
+  const sleep = ms => new Promise(r=>setTimeout(r,ms));
+
+  // counter animation
+  function animateCount(el){
+    const target = +el.dataset.count;
+    const suffix = el.dataset.suffix || '';
+    let cur = 0;
+    const step = Math.max(1, Math.floor(target/40));
+    const id = setInterval(()=>{
+      cur += step;
+      if(cur >= target){ cur = target; clearInterval(id); }
+      el.textContent = cur + suffix;
+    }, 30);
+  }
+
+  // reveal on scroll + trigger counters/terminal
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('on');
+        if(e.target.id==='about'){
+          document.querySelectorAll('.stat .num').forEach(animateCount);
+          runTerm();
+        }
+        obs.unobserve(e.target);
+      }
+    });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+  // active nav link
+  const navLinks = document.querySelectorAll('nav a');
+  const sections = document.querySelectorAll('section');
+  window.addEventListener('scroll', ()=>{
+    const y = window.scrollY + 200;
+    sections.forEach(s=>{
+      if(y >= s.offsetTop && y < s.offsetTop + s.offsetHeight){
+        navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === '#'+s.id));
+      }
+    });
+  });
+
+  // particle background
+  const cvs = document.getElementById('bgCanvas');
+  const ctx = cvs.getContext('2d');
+  let W, H, particles=[];
+  function resize(){ W=cvs.width=innerWidth; H=cvs.height=innerHeight; }
+  resize(); window.addEventListener('resize', resize);
+  for(let i=0;i<80;i++){
+    particles.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*1.6+.4});
+  }
+  let mx=-999,my=-999;
+  window.addEventListener('mousemove', e=>{mx=e.clientX;my=e.clientY});
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    for(const p of particles){
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(0,229,168,0.55)'; ctx.fill();
+    }
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const a=particles[i],b=particles[j];
+        const d=Math.hypot(a.x-b.x,a.y-b.y);
+        if(d<130){
+          ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+          ctx.strokeStyle=`rgba(91,141,255,${(1-d/130)*.3})`; ctx.lineWidth=.5; ctx.stroke();
+        }
+      }
+      const dm = Math.hypot(particles[i].x-mx,particles[i].y-my);
+      if(dm<160){
+        ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(mx,my);
+        ctx.strokeStyle=`rgba(0,229,168,${(1-dm/160)*.6})`; ctx.lineWidth=.8; ctx.stroke();
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+</script>
 </body>
 </html>
